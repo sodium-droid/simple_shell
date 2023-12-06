@@ -17,7 +17,7 @@ int main(int ac, char **av)
 		if (ps == -1)
 		{
 			perror("Error: Can't create a new process\n");
-			return (1);
+			exit(98);
 		}
 		if (ps == 0)
 			shell_init(av[ac - 1]);
