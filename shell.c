@@ -14,10 +14,11 @@ int main(int ac, char **av)
 	char *lineptr = NULL;
 	char *msg = "#cisfun$ ";
 	int does_exist;
-	char *argv[2];
+	char *argv[512];
 	struct stat st;
 	pid_t ps;
 	char newline = '\n';
+	int num_tokens;
 
 	while (1)
 	{
@@ -40,20 +41,20 @@ int main(int ac, char **av)
 				free_res(&lineptr, &n);
 				return (0);
 			}
-			argv[0] = strtok(lineptr, "\n");
-			argv[1] = NULL;
+			num_tokens = count_tokens(lineptr);
+			tokenize(argv, lineptr);
 			does_exist = stat(argv[0], &st);
 			if (does_exist == -1)
 			{
 				errno = ENOENT;
 				perror(prog_n);
-				free_res(&lineptr, &n);
+				free_res2(argv, num_tokens, lineptr);
 				return (0);
 			}
 			if ((execve(argv[0], argv, environ) == -1))
 			{
 				perror(prog_n);
-				free_res(&lineptr, &n);
+				free_res2(argv, num_tokens, lineptr);
 				return (0);
 			}
 		}
@@ -62,9 +63,6 @@ int main(int ac, char **av)
 			waitpid(ps, &status, 0);
 			if (WIFEXITED(status) && (WEXITSTATUS(status) > 0))
 			{
-				free(lineptr);
-				lineptr = NULL;
-				n = 0;
 				write(0, &newline, 1);
 				break;
 			}

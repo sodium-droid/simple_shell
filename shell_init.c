@@ -9,26 +9,36 @@ int shell_init(char *prog_n)
 {
 	size_t n = 0;
 	char *lineptr = NULL;
-	char *cmd;
+	char *argv[2];
+	char *msg = "#cisfun$ ";
 	struct stat st;
 	int does_exist;
-	char *argv[2];
 
-	printf("#cisfun$ ");
-	getline(&lineptr, &n, stdin);
-	cmd = strtok(lineptr, "\n");
-	does_exist = stat(cmd, &st);
-	if (does_exist == 0)
+	write(0, msg, 10);
+	if (getline(&lineptr, &n, stdin) == EOF)
 	{
-		argv[0] = cmd;
-		argv[1] = NULL;
-		execve(argv[0], argv, environ);
+		free_res(&lineptr, &n);
+		return (96);
 	}
-	else
+	if (*((int *)lineptr) == 10)
+		return (0);
+	argv[0] = strtok(lineptr, "\n");
+	argv[1] = NULL;
+	does_exist = stat(argv[0], &st);
+	if (does_exist == -1)
 	{
-		printf("%s: No such file or directory\n", prog_n);
-		return (1);
+		errno = ENOENT;
+		perror(prog_n);
+		free_res(&lineptr, &n);
+		return (0);
 	}
-	free(lineptr);
+	if ((execve(argv[0], argv, environ) == -1))
+	{
+		perror(prog_n);
+		free_res(&lineptr, &n);
+		return (0);
+	}
+	free_res(&lineptr, &n);
 	return (0);
 }
+
