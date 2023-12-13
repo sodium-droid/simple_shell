@@ -11,8 +11,12 @@
 #include <fcntl.h>
 #include <string.h>
 #include <errno.h>
+#include <signal.h>
 extern char **environ;
-int shell_init(char *prog_n);
+int shell_init(char *prog_n, char **lineptr_to_update);
 void free_res(char **lineptr, size_t *n);
+void update_close(int c_val);
+void get_lineptr(char **lineptr, char **lineptr_add);
+void kill_cp(pid_t child_pid, pid_t main_pid);
 
 #endif
