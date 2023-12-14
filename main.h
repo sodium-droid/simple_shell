@@ -18,5 +18,6 @@ void update_close(int c_val);
 void get_lineptr(char **lineptr, char **lineptr_add);
 void kill_cp(pid_t child_pid, pid_t main_pid);
 #define STDIN_FILENO 0
+int _strcmp(char *string1, char *string2);
 
 #endif
