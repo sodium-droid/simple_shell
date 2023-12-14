@@ -18,5 +18,6 @@ void free_res(char **lineptr, size_t *n);
 void update_close(int c_val);
 void get_lineptr(char **lineptr, char **lineptr_add);
 void kill_cp(pid_t child_pid, pid_t main_pid);
+#define STDIN_FILENO 0
 
 #endif
