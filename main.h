@@ -12,8 +12,7 @@
 #include <string.h>
 #include <errno.h>
 #include <signal.h>
-extern char **environ;
-int shell_init(char *prog_n, char **lineptr_to_update);
+int shell_init(char *prog_n, char **lineptr_to_update, char **env);
 void free_res(char **lineptr, size_t *n);
 void update_close(int c_val);
 void get_lineptr(char **lineptr, char **lineptr_add);

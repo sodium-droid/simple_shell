@@ -5,7 +5,7 @@
  * @av: argument's vector
  * Return: 0, if no error, otherwise 1.
  */
-int main(int ac, char **av)
+int main(int ac, char **av, char **env)
 {
 	char *prog_n = av[ac - 1];
 	int status, status_p;
@@ -24,7 +24,7 @@ int main(int ac, char **av)
 		else if (ps == 0)
 		{
 			child_pid = getpid();
-			status_p = shell_init(prog_n, &lineptr);
+			status_p = shell_init(prog_n, &lineptr, env);
 			if (status_p == 96)
 				kill_cp(child_pid, main_pid);
 			else

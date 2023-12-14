@@ -6,7 +6,7 @@
  * @lineptr_to_update: lineptr variable to store read line buffer
  * Return: 0, if no error, otherwise 1 is returned
  */
-int shell_init(char *prog_n, char **lineptr_to_update)
+int shell_init(char *prog_n, char **lineptr_to_update, char **env)
 {
 	char *lineptr = NULL, *msg = "#cisfun$ ";
 	size_t n = 0;
@@ -36,7 +36,7 @@ int shell_init(char *prog_n, char **lineptr_to_update)
 		return (0);
 	}
 	get_lineptr(&lineptr, &(*lineptr_to_update));
-	if ((execve(argv[0], argv, environ) == -1))
+	if ((execve(argv[0], argv, env) == -1))
 		perror(prog_n);
 	return (0);
 }
