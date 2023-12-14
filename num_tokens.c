@@ -12,9 +12,11 @@
  */
 char *_strcpy(char *dest, char *src)
 {
-	int len = (int) strlen(src);
-	int i = 0;
+	int len = 0;
+	int i;
 
+	len = _strlen(src);
+	i = 0;
 	while (i < len)
 	{
 		dest[i] = src[i];
@@ -25,7 +27,7 @@ char *_strcpy(char *dest, char *src)
 }
 
 /**
- * count_tokens - counts the number token that can gotten from a string
+ * count_tokens - counts the number token that can be gotten from a string
  * @lineptr: the string from which tokens are extracted
  *
  * Return: the number of token that can be gotten from the string or zero,
@@ -34,9 +36,10 @@ char *_strcpy(char *dest, char *src)
 int count_tokens(char *lineptr)
 {
 	int n_tokens = 0;
-	char *lineptr_cpy = malloc(sizeof(char) * strlen(lineptr));
+	char *lineptr_cpy;
 	char *tokens;
 
+	lineptr_cpy = malloc(sizeof(char) * (_strlen(lineptr) + 1));
 	_strcpy(lineptr_cpy, lineptr);
 	tokens = strtok(lineptr_cpy, " \n\t\r");
 	while (tokens)
@@ -58,7 +61,7 @@ void tokenize(char *argv[], char *lineptr)
 {
 	char *token = NULL;
 	int i;
-	char *lineptr_cpy = malloc(sizeof(char) * (strlen(lineptr) + 1));
+	char *lineptr_cpy = malloc(sizeof(char) * (_strlen(lineptr) + 1));
 	char *delim = " \n\t\r";
 
 	lineptr_cpy = _strcpy(lineptr_cpy, lineptr);
@@ -66,7 +69,7 @@ void tokenize(char *argv[], char *lineptr)
 	i = 0;
 	while (token)
 	{
-		argv[i] = malloc(sizeof(char) * (strlen(token) + 1));
+		argv[i] = malloc(sizeof(char) * (_strlen(token) + 1));
 		_strcpy(argv[i], token);
 		i++;
 		token = strtok(NULL, delim);
@@ -74,4 +77,18 @@ void tokenize(char *argv[], char *lineptr)
 			argv[i] = NULL;
 	}
 	free(lineptr_cpy);
+}
+
+/**
+ * _strlen - calculates the length of a string
+ * @string: the string whose length is obtained
+ * Return: the number of bytes in a string or 0 for empty string
+ */
+int _strlen(char *string)
+{
+	int i, len = 0;
+
+	for (i = 0; string[i] != '\0'; i++)
+		len++;
+	return (len);
 }

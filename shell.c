@@ -3,6 +3,7 @@
  * main - entry to the program
  * @ac: argument's counter
  * @av: argument's vector
+ * @env: environment variable
  * Return: 0, if no error, otherwise 1.
  */
 int main(int ac, char **av, char **env)
@@ -11,7 +12,6 @@ int main(int ac, char **av, char **env)
 	int status, status_p;
 	char *lineptr = NULL;
 	pid_t ps, child_pid, main_pid;
-	int num_tokens;
 
 	main_pid = getpid();
 	while (1)
