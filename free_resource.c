@@ -21,3 +21,18 @@ void get_lineptr(char **lineptr, char **lineptr_add)
 {
 	*lineptr_add = &(**lineptr);
 }
+
+/**
+ * free_res2 - frees both a character pointer and pointers' array
+ * @argv: pointers' array to be freed
+ * @num_tokens: the number of array elements to be freed
+ * @lineptr: the character pointer to be freed
+ */
+void free_res2(char *argv[], int num_tokens, char *lineptr)
+{
+	int i;
+
+	for (i = 0; i < num_tokens; i++)
+		free(argv[i]);
+	free(lineptr);
+}
