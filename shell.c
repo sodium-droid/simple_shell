@@ -3,6 +3,7 @@
  * main - entry to the program
  * @ac: argument's counter
  * @av: argument's vector
+ * @env: environment variable
  * Return: 0, if no error, otherwise 1.
  */
 int main(int ac, char **av, char **env)

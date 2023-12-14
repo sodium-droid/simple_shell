@@ -20,7 +20,7 @@ void kill_cp(pid_t child_pid, pid_t main_pid)
 int _strcmp(char *string1, char *string2)
 {
 	int str1_len = 0, str2_len = 0, i, res = 0;
-	
+
 	for (i = 0; string1[i]; i++)
 		str1_len++;
 
@@ -41,6 +41,6 @@ int _strcmp(char *string1, char *string2)
 		}
 	}
 	else
-		return 0;
+		return (0);
 	return (res);
 }
