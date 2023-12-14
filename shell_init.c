@@ -27,11 +27,6 @@ int shell_init(char *prog_n, char **lineptr_to_update, char **env)
 	}
 	argv[0] = strtok(lineptr, "\n");
 	argv[1] = NULL;
-	if (_strcmp(argv[0], "exit"))
-	{
-		free_res(&lineptr, &n);
-		return (96);
-	}
 	does_exist = stat(argv[0], &st);
 	if (does_exist == -1)
 	{
