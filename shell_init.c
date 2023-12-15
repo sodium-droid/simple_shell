@@ -28,10 +28,15 @@ int shell_init(char *prog_n, char **lineptr_to_update, char **env)
 	}
 	num_tokens = count_tokens(lineptr);
 	tokenize(argv, lineptr);
+	if (access(argv[0], F_OK | X_OK) == -1)
+	{
+		perror(prog_n);
+		free_res2(argv, num_tokens, lineptr);
+		return (0);
+	}
 	does_exist = stat(argv[0], &st);
 	if (does_exist == -1)
 	{
-		errno = ENOENT;
 		perror(prog_n);
 		free_res2(argv, num_tokens, lineptr);
 		return (0);
