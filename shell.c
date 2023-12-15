@@ -27,13 +27,16 @@ int main(int ac, char **av, char **env)
 			child_pid = getpid();
 			status_p = shell_init(prog_n, &lineptr, env);
 			if (status_p == 96)
+			{
 				kill_cp(child_pid, main_pid);
+			}
 			else
 				kill(child_pid, SIGINT);
 		}
 		else
 		{
 			waitpid(ps, &status, 0);
+			free(lineptr);
 			if (!(isatty(STDIN_FILENO)))
 				break;
 		}
