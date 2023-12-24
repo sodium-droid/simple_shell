@@ -15,10 +15,15 @@ int shell_init(char *prog_n, char **lineptr_to_update, char **env)
 	char *argv[1024];
 
 	write(0, msg, 10);
-	if (getline(&lineptr, &n, stdin) == -1)
+	if (getline(&lineptr, &n, stdin) == -1 || _strcmp(lineptr, "exit") == 1)
 	{
 		free_res(&lineptr, &n);
 		return (96);
+	}
+	else if (_strcmp(lineptr, "env") == 1)
+	{
+		print_env(env);
+		return (0);
 	}
 	else if (*((int *)lineptr) == 10)
 	{

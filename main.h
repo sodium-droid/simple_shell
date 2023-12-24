@@ -18,11 +18,13 @@ void update_close(int c_val);
 void get_lineptr(char **lineptr, char **lineptr_add);
 void kill_cp(pid_t child_pid, pid_t main_pid);
 #define STDIN_FILENO 0
+#define STDOUT_FILENO 1
 int _strcmp(char *string1, char *string2);
 void free_res2(char *argv[], int num_tokens, char *lineptr);
 char *_strcpy(char *dest, char *src);
 int count_tokens(char *lineptr);
 void tokenize(char *argv[], char *lineptr);
 int _strlen(char *string);
+void print_env(char **env);
 
 #endif
