@@ -9,7 +9,7 @@
 int main(int ac, char **av, char **env)
 {
 	char *prog_n = av[ac - 1];
-	int status, status_p;
+	int status, status_p, exit_state = 0;
 	char *lineptr = NULL;
 	pid_t ps, child_pid, main_pid;
 
@@ -32,13 +32,17 @@ int main(int ac, char **av, char **env)
 				kill_cp(child_pid, main_pid);
 			}
 			else
+			{
 				kill(child_pid, SIGINT);
+			}
 		}
 		else
 		{
 			waitpid(ps, &status, 0);
 			free(lineptr);
-			if (!(isatty(STDIN_FILENO)))
+			if (!(isatty(STDIN_FILENO)) || exit_state > 0)
+				break;
+			if (WIFEXITED(status))
 				break;
 		}
 	}
