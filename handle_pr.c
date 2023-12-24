@@ -22,10 +22,12 @@ int _strcmp(char *string1, char *string2)
 	int str1_len = 0, str2_len = 0, i, res = 0;
 
 	for (i = 0; string1[i]; i++)
-		str1_len++;
+		if ((int)string1[i] != (int)'\n')
+			str1_len++;
 
 	for (i = 0; string2[i]; i++)
-		str2_len++;
+		if ((int)string2[i] != (int)'\n')
+			str2_len++;
 
 	if (str1_len == str2_len)
 	{
@@ -43,4 +45,22 @@ int _strcmp(char *string1, char *string2)
 	else
 		return (0);
 	return (res);
+}
+
+/**
+ * print_env - displays the environment variables
+ * @env: the variable that holds the environment variables
+ */
+void print_env(char **env)
+{
+	int i;
+	char newline = '\n';
+
+	i = 0;
+	while (env[i])
+	{
+		write(STDOUT_FILENO, env[i], _strlen(env[i]));
+		write(STDOUT_FILENO, &newline, 1);
+		i++;
+	}
 }

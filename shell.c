@@ -28,6 +28,7 @@ int main(int ac, char **av, char **env)
 			status_p = shell_init(prog_n, &lineptr, env);
 			if (status_p == 96)
 			{
+				free(lineptr);
 				kill_cp(child_pid, main_pid);
 			}
 			else
