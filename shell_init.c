@@ -12,16 +12,20 @@ int shell_init(char *prog_n, char **lineptr_to_update, char **env)
 	char *lineptr = NULL, *msg = "#cisfun$ ";
 	size_t n = 0;
 	int num_tokens;
-	char *argv[1024];
+	char *argv[1024], newln = '\n';
 
 	write(0, msg, 10);
 	if (getline(&lineptr, &n, stdin) == -1)
 	{
 		free_res(&lineptr, &n);
-		return (96);
+		write(1, &newln, 1);
+		exit(96);
 	}
-	else if (_strcmp(lineptr, "exit") == 1)
-		exit(0);
+	if (_strcmp(lineptr, "exit") == 1)
+	{
+		free_res(&lineptr, &n);
+		exit(96);
+	}
 	else if (_strcmp(lineptr, "env") == 1)
 	{
 		print_env(env);
@@ -30,7 +34,7 @@ int shell_init(char *prog_n, char **lineptr_to_update, char **env)
 	else if (*((int *)lineptr) == 10)
 	{
 		free_res(&lineptr, &n);
-		return (0);
+		exit(0);
 	}
 	num_tokens = count_tokens(lineptr);
 	tokenize(argv, lineptr);
@@ -38,7 +42,7 @@ int shell_init(char *prog_n, char **lineptr_to_update, char **env)
 	{
 		perror(prog_n);
 		free_res2(argv, num_tokens, lineptr);
-		return (0);
+		return (95);
 	}
 	get_lineptr(&lineptr, &(*lineptr_to_update));
 	if ((execve(argv[0], argv, env) == -1))

@@ -9,11 +9,10 @@
 int main(int ac, char **av, char **env)
 {
 	char *prog_n = av[ac - 1];
-	int status, status_p, exit_state = 0;
+	int status;
 	char *lineptr = NULL;
-	pid_t ps, child_pid, main_pid;
+	pid_t ps;
 
-	main_pid = getpid();
 	while (1)
 	{
 		ps = fork();
@@ -24,25 +23,16 @@ int main(int ac, char **av, char **env)
 		}
 		else if (ps == 0)
 		{
-			child_pid = getpid();
-			status_p = shell_init(prog_n, &lineptr, env);
-			if (status_p == 96)
-			{
-				free(lineptr);
-				kill_cp(child_pid, main_pid);
-			}
-			else
-			{
-				kill(child_pid, SIGINT);
-			}
+			if (shell_init(prog_n, &lineptr, env) == 95)
+				exit(0);
+			free(lineptr);
 		}
 		else
 		{
 			waitpid(ps, &status, 0);
-			free(lineptr);
-			if (!(isatty(STDIN_FILENO)) || exit_state > 0)
+			if (!(isatty(STDIN_FILENO)))
 				break;
-			if (WIFEXITED(status))
+			else if (WEXITSTATUS(status) > 0)
 				break;
 		}
 	}
