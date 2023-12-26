@@ -30,4 +30,11 @@ int to_int(char *str);
 void exit_with_status(char *lineptr);
 int is_exit(char *lineptr, char *exit_keyword);
 
+/*string.c*/
+int _putchar(char c);
+void _puts(char *str);
+int _strcspn(const char *str, const char *check);
+char *_strncat(char *dest, char *src, int n);
+char *_strcat(char *dest, char *src);
+
 #endif

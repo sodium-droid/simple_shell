@@ -27,7 +27,7 @@ char *_strcpy(char *dest, char *src)
 }
 
 /**
- * count_tokens - counts the number token that can be gotten from a string
+ * count_tokens - counts the number token that can gotten from a string
  * @lineptr: the string from which tokens are extracted
  *
  * Return: the number of token that can be gotten from the string or zero,

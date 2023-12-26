@@ -11,24 +11,6 @@ int _putchar(char c)
 	return (write(1, &c, 1));
 }
 /**
- *_strlen - function that
- *outputs the lenght of a string
- *@s: required string
- *Return: 0 (lenght of string)
- */
-
-int _strlen(char *s)
-{
-int i, j = 0;
-
-if(!s)
-	return (0);
-for (i = 0; s[i] != '\0'; i++)
-	j++;
-return (j);
-}
-
-/**
  *_puts - prints a string
  *and a new line.
  *@str: string to print
@@ -43,28 +25,6 @@ if (!str)
 for (i = 0; str[i] != '\0'; i++)
 	_putchar(str[i]);
 }
-
-/**
- *_strcpy - A function that
- *copies the string pointed to by
- *src to dest.
- *@src: pointer
- *@dest: destination
- *Return: dest.
- */
-
-char *_strcpy(char *dest, char *src)
-{
-int i;
-
-for (i = 0; src[i] != '\0'; i++)
-{
-	dest[i] = src[i];
-}
-dest[i] = '\0';
-return (dest);
-}
-
 /**
  *_strcspn - returns the number of bytes in *str 
  *before the first occurence of the first character in both pointers
@@ -92,3 +52,43 @@ while (*str)
 }
 return (i);
 }
+
+/**
+ *_strncat - A function that concats
+ *two strings based on size of n
+ *@dest: string destination
+ *@src: string source
+ *@n: required bytes (number)
+ *Return: dest
+ */
+
+char *_strncat(char *dest, char *src, int n)
+{
+int i, destlen = _strlen(dest);
+
+for (i = 0; i < n && *src != '\0'; i++)
+{
+dest[destlen + i] = *src;
+src++;
+}
+dest[destlen + i] = '\0';
+return (dest);
+}
+
+/**
+ *_strcat - A funtion that
+ *concats 2 strings
+ *@dest: string 1
+ *@src: string 2
+ *Return: dest.
+ */
+
+char *_strcat(char *dest, char *src)
+{
+int i, lena = _strlen(src), lenb = _strlen(dest);
+
+for (i = 0; i <= lena; i++)
+	dest[lenb + i] = src[i];
+return (dest);
+}
+

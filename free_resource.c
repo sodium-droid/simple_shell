@@ -107,4 +107,3 @@ int is_exit(char *lineptr, char *exit_keyword)
 	}
 	return (result);
 }
-
