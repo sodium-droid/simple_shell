@@ -9,7 +9,7 @@
 int main(int ac, char **av, char **env)
 {
 	char *prog_n = av[ac - 1];
-	int status;
+	int status, code;
 	char *lineptr = NULL;
 	pid_t ps;
 
@@ -33,7 +33,10 @@ int main(int ac, char **av, char **env)
 			if (!(isatty(STDIN_FILENO)))
 				break;
 			else if (WEXITSTATUS(status) > 0)
-				break;
+			{
+				code = WEXITSTATUS(status);
+				exit(code);
+			}
 		}
 	}
 	return (0);

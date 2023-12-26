@@ -20,7 +20,7 @@ void free_res(char **lineptr, size_t *n)
  */
 int to_int(char *str)
 {
-	int i = 0, j = 0, num = 0, temp, times, power_of, str_len = _strlen(str) - 1;
+	int i = 0, j = 0, num = 0, temp, times, power_of, str_len = _strlen(str);
 
 	while (j < str_len)
 	{
