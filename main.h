@@ -26,5 +26,8 @@ int count_tokens(char *lineptr);
 void tokenize(char *argv[], char *lineptr);
 int _strlen(char *string);
 void print_env(char **env);
+int to_int(char *str);
+void exit_with_status(char *lineptr);
+int is_exit(char *lineptr, char *exit_keyword);
 
 #endif

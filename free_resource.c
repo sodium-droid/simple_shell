@@ -13,13 +13,39 @@ void free_res(char **lineptr, size_t *n)
 }
 
 /**
- * get_lineptr - gets the address of the lineptr variable
- * @lineptr: the src address to be obtained
- * @lineptr_add: the destination address
+ * to_int - converts a string into a number
+ * @str: the string from which number is extracted and converted to integer
+ *
+ * Return: the integer type of the converted number
  */
-void get_lineptr(char **lineptr, char **lineptr_add)
+int to_int(char *str)
 {
-	*lineptr_add = &(**lineptr);
+	int i = 0, j = 0, num = 0, temp, times, power_of, str_len = _strlen(str) - 1;
+
+	while (j < str_len)
+	{
+		temp = (int)str[i] - 48;
+		if (str_len == 1)
+			temp *= 1;
+		else if (str_len == 2)
+			temp *= 10;
+		else if (str_len > 2)
+		{
+			times = str_len;
+			power_of = 1;
+			while (times)
+			{
+				if (times >= 2)
+					power_of *= 10;
+				times--;
+			}
+			temp *= power_of;
+		}
+		num += temp;
+		str_len--;
+		i++;
+	}
+	return (num);
 }
 
 /**
@@ -36,3 +62,49 @@ void free_res2(char *argv[], int num_tokens, char *lineptr)
 		free(argv[i]);
 	free(lineptr);
 }
+
+/**
+ * exit_with_status - exits a program, using a given exit's status code
+ * @lineptr: the command line that contains the status code
+ */
+void exit_with_status(char *lineptr)
+{
+	char *cmd[3];
+	int exit_code;
+
+	tokenize(cmd, lineptr);
+	if (cmd[1] != NULL)
+	{
+		exit_code = to_int(cmd[1]);
+		free(lineptr);
+		exit(exit_code);
+	}
+	else
+	{
+		free(lineptr);
+		exit(96);
+	}
+}
+
+
+/**
+ * is_exit - checks if the commandline is exit command
+ * @lineptr: the texts to be checked for exit
+ * @exit_keyword: the exit word to be looked up from lineptr
+ *
+ * Return: 1, if exit is found, otherwise 0 is returned
+*/
+int is_exit(char *lineptr, char *exit_keyword)
+{
+	int i, result = 0, exit_keyword_len = _strlen(exit_keyword);
+
+	for (i = 0; i < exit_keyword_len; i++)
+	{
+		if ((int)exit_keyword[i] == (int)lineptr[i])
+			result = 1;
+		else
+			result = 0;
+	}
+	return (result);
+}
+
