@@ -21,10 +21,9 @@ int shell_init(char *prog_n, char **lineptr_to_update, char **env)
 		write(1, &newln, 1);
 		exit(96);
 	}
-	if (_strcmp(lineptr, "exit") == 1)
+	if (is_exit(lineptr, "exit") == 1)
 	{
-		free_res(&lineptr, &n);
-		exit(96);
+		exit_with_status(lineptr);
 	}
 	else if (_strcmp(lineptr, "env") == 1)
 	{
@@ -52,4 +51,14 @@ int shell_init(char *prog_n, char **lineptr_to_update, char **env)
 		return (0);
 	}
 	return (0);
+}
+
+/**
+ * get_lineptr - gets the address of the lineptr variable
+ * @lineptr: the src address to be obtained
+ * @lineptr_add: the destination address
+ */
+void get_lineptr(char **lineptr, char **lineptr_add)
+{
+	*lineptr_add = &(**lineptr);
 }
